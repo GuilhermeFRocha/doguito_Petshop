@@ -1,27 +1,3 @@
-    //TEMPLATE QUE RECEBE DADO E GERA UMA VISUALIZAÇAO NO HTML
-
-const criaNovaLinha = (nome, email) => {
-  //Criaçao da linha// 
-  const linhaNovoCliente = document.createElement("tr")
-
-  // Conteudo da linha// 
-  const conteudo = `
-    <td class="td" data-td>${nome}</td>
-    <td>${email}</td>
-    <td>
-        <ul class="tabela__botoes-controle">
-            <li><a href="../telas/edita_cliente.html?id=" class="botao-simples botao-simples--editar">Editar</a></li>
-            <li><button class="botao-simples botao-simples--excluir" type="button">Excluir</button></li>
-        </ul>
-    </td>
- `
-  //Inserir o conteudo da linha no html//
-  linhaNovoCliente.innerHTML = conteudo
-  return linhaNovoCliente
-}
-//Selecionar a tabela//
-const tabela = document.querySelector("[data-tabela]")
-
 /*const ListaClientes = () => {
   return fetch ("http://localhost:3000/profile")
   .then (resposta=> {
@@ -34,16 +10,18 @@ ListaClientes().then (data =>{
 data.forEach(elemento => {
 tabela.appendChild(criaNovaLinha(elemento.nome, elemento.email))
 })})*/
-async function teste(){
-  const url = 'http://localhost:3000/profile'
-  const fetch1 = await fetch(`${url}`)
-  const resposta = await fetch1.json()
- const resultado = await  resposta.forEach(element => {
-     tabela.appendChild(criaNovaLinha(element.nome, element.email))
-   });
-  return resultado
-} 
-teste()
+
+// Conexao da API com JS
+const listaClientes = ()=> {
+    return fetch (`http://localhost:3000/profile`)
+    .then (resposta => {
+      return resposta.json()
+    })
+}
+
+export const clienteService = {
+  listaClientes
+}
 /*
 fetch("http://localhost:3000/profile").then((response) => response.json()).then((json) => json.forEach(usuario =>{
   tabela.appendChild(criaNovaLinha(usuario.nome, usuario.email))
